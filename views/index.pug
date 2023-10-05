@@ -1,0 +1,143 @@
+<!doctype html>
+html (lang="en")
+
+head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer")
+    link(rel="stylesheet", href="/css/style.css")
+    title Add Product
+
+</head>
+
+body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+        div.container
+            a(href="/").navbar-brand Shopping
+            ul.navbar-nav.ml-auto
+                li.nav-item.active
+                    a(href="/").nav-link Login
+                
+                li.nav-item 
+                    a(href="/").nav-link Register
+
+        
+
+    div.container.pt-100 
+        div.row
+            div.col-lg-3
+                div.list-group
+                    a(href="").list-group-item Category 1
+                    a(href="").list-group-item Category 2
+                    a(href="").list-group-item Category 3
+                
+            
+
+            div.col-lg-9
+                
+                div#demo.carousel.slide(data-bs-ride="carousel")
+
+                   
+                    div.carousel-indicators
+                        button(type="button" data-bs-target="#demo" data-bs-slide-to="0").active
+                        button(type="button" data-bs-target="#demo" data-bs-slide-to="1")
+                        button(type="button" data-bs-target="#demo" data-bs-slide-to="2")
+                    
+
+                   
+                    div.carousel-inner
+                        div.carousel-item.active
+                            img(src="/img/slide-1.jpg").d-block.img-width 
+                        
+                        div.carousel-item
+                            img(src="/img/slide-2.jpg").d-block
+
+                        div.carousel-item
+                            img(src="/img/slide-3.jpg").d-block
+
+                    button.carousel-control-prev(type="button" data-bs-target="#demo" data-bs-slide="prev")
+                        span.carousel-control-prev-icon
+                    
+                    button.carousel-control-next(type="button" data-bs-target="#demo" data-bs-slide="next")
+                        span.carousel-control-next-icon
+                    
+              
+
+                div.row
+
+                    div.col-md-4.my-3
+                        div.card
+                            img(src="/img/b.jpg").card-img-top
+                            div.card-body
+                                h4.card-title
+                                    a(href="") Product Name
+                                
+                                p.card-text.pt-2 Lorem ipsum dolor sit.
+                                
+                            
+                            div.card-footer
+                                small.text-muted 
+                                i.fa.fa-try 100
+                                a(href="").btn.btn-secondary.btn-sm.float-right
+                                    i.fa.fa-angle-double-right Details
+                                
+                            
+                    div.col-md-4.my-3
+                        div.card
+                            img(src="/img/c.jpg").card-img-top
+                            div.card-body
+                                h4.card-title
+                                    a(href="") Product Name
+
+                                p.card-text.pt-2 Lorem ipsum dolor sit.
+                                
+                            
+                            div.card-footer
+                                small.text-muted 
+                                i.fa.fa-try 100
+                                a(href="").btn.btn-secondary.btn-sm.float-right
+                                    i.fa.fa-angle-double-right Details
+                                
+
+                    div.col-md-4.my-3
+                        div.card
+                            img(src="/img/d.jpg").card-img-top
+                            div.card-body
+                                h4.card-title
+                                    a(href="") Product Name
+
+                                p.card-text.pt-2 Lorem ipsum dolor sit.
+                                
+                            
+                            div.card-footer
+                                small.text-muted 
+                                i.fa.fa-try 100
+                                a(href="").btn.btn-secondary.btn-sm.float-right
+                                    i.fa.fa-angle-double-right Details
+
+                    div.col-md-4.my-3
+                        div.card
+                            img(src="/img/e.jpg").card-img-top
+                            div.card-body
+                                h4.card-title
+                                    a(href="") Product Name
+
+                                p.card-text.pt-2 Lorem ipsum dolor sit.
+                                
+                            
+                            div.card-footer
+                                small.text-muted 
+                                i.fa.fa-try 100
+                                a(href="").btn.btn-secondary.btn-sm.float-right
+                                    i.fa.fa-angle-double-right Details
+
+                
+
+                    
+
+                
+          
+
+   
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js")
