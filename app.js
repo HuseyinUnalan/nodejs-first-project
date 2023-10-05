@@ -1,13 +1,15 @@
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello World');
+app.use((req, res, next) => {
+    console.log("middleware 1 çalıştırıldı");
+    next()
 });
 
-app.get('/api/products', (req, res) => {
-    res.send('Products List');
-});
+app.use((req, res, next) => {
+    console.log("middleware 2 çalıştırıldı")
+    res.send('<h1>Hello from express</h1>');
+})
 
 app.listen(3000, () => {
     console.log('Listenin on port 3000.');
