@@ -1,40 +1,20 @@
 extends layouts/main-layout.pug 
 
-include includes/createProduct.pug                        
+include mixins/createProduct.pug                        
 
 block content
                 
-                div#demo.carousel.slide(data-bs-ride="carousel")
+            include includes/slider.pug
 
-                   
-                    div.carousel-indicators
-                        button(type="button" data-bs-target="#demo" data-bs-slide-to="0").active
-                        button(type="button" data-bs-target="#demo" data-bs-slide-to="1")
-                        button(type="button" data-bs-target="#demo" data-bs-slide-to="2")
-                    
+            div.row
+                if products.length > 0
 
-                   
-                    div.carousel-inner
-                        div.carousel-item.active
-                            img(src="/img/slide-1.jpg").d-block.img-width 
-                        
-                        div.carousel-item
-                            img(src="/img/slide-2.jpg").d-block
-
-                        div.carousel-item
-                            img(src="/img/slide-3.jpg").d-block
-
-                    button.carousel-control-prev(type="button" data-bs-target="#demo" data-bs-slide="prev")
-                        span.carousel-control-prev-icon
-                    
-                    button.carousel-control-next(type="button" data-bs-target="#demo" data-bs-slide="next")
-                        span.carousel-control-next-icon
-                    
-              
-
-                div.row
                     each product in products
                         +createProduct(product)
+
+                else 
+
+                    h1 No Products        
                         
                                 
                             
