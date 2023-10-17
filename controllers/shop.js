@@ -21,6 +21,16 @@ module.exports.getProducts = (req, res, next) => {
     });
 }
 
+module.exports.getProduct = (req, res, next) => {
+    const productId = req.params.productid;
+    const product = Product.getById(req.params.productid);
+    res.render('shop/product-detail', {
+        title: product.name,
+        product: product,
+        path: '/products'
+    });
+}
+
 module.exports.getProductDetails = (req, res, next) => {
     const products = Product.getAll();
     // res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
