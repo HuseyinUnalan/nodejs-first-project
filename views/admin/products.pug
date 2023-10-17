@@ -1,7 +1,27 @@
 extends ../layouts/main-layout.pug 
 
 block content
-                
+     .row 
+      
+        table.table.table-bordered  
+          thead 
+            tr 
+              th Image 
+              th Product Name 
+              th Price
+              th  
+            tbody 
+                each product in products 
+                  tr 
+                    td 
+                        img(src=`/img/${product.imageUrl}`, width='80', alt="")
+                    td #{product.name}    
+                    td #{product.price} TL 
+                    td 
+                      a.btn.btn-primary.btn-sm(href='details/1') Edit 
+      
+
+                            
 
            
                                 

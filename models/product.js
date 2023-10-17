@@ -1,4 +1,6 @@
-const products = [];
+const products = [
+    { name: 'Samsung S6', price: 2000, imageUrl: 'e.jpg', description: 'İyi Ürün' }
+];
 
 module.exports = class Product {
 
