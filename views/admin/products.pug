@@ -1,6 +1,10 @@
 extends ../layouts/main-layout.pug 
 
 block content
+
+     if (action !== 'undefined' && action === 'edit')   
+          div.alert.alert-success The product has been updated.
+       
      .row 
       
         table.table.table-bordered  
@@ -20,7 +24,7 @@ block content
                     td 
                       a.btn.btn-primary.btn-sm(href=`/admin/products/${product.id}`) Edit 
       
-
+       
                             
 
            
