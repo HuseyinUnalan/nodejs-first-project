@@ -34,15 +34,26 @@ exports.postAddProducts = (req, res, next) => {
 }
 
 module.exports.getEditProducts = (req, res, next) => {
-    // res.sendFile(path.join(__dirname, '../', 'views', 'add-product.html'));
+
+    const product = Product.getById(req.params.productid);
+
     res.render('admin/edit-product', {
         title: 'Edit Product',
-        path: '/admin/edit-product'
+        path: '/admin/products',
+        product: product
 
     });
 }
 
 exports.postEditProducts = (req, res, next) => {
 
-    res.redirect('/');
+    const product = Product.getById(req.body.id);
+
+    product.name = req.body.name;
+    product.price = req.body.price;
+    product.imageUrl = req.body.imageUrl;
+    product.description = req.body.description;
+
+    Product.Update(product);
+    res.redirect('/admin/products');
 }

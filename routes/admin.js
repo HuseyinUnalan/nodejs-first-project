@@ -10,9 +10,9 @@ router.get('/add-product', adminController.getAddProducts);
 
 router.post('/add-product', adminController.postAddProducts);
 
-router.get('/edit-product', adminController.getEditProducts);
+router.get('/products/:productid', adminController.getEditProducts);
 
-router.post('/edit-product', adminController.postEditProducts)
+router.post('/products', adminController.postEditProducts)
 
 router.get('/products', adminController.getProducts);
 

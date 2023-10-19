@@ -6,26 +6,29 @@ block styles
 block content
 
   
-        form(action="/admin/edit-product" method="POST")
+        form(action="/admin/products" method="POST")
+
+            input#id(type="hidden" name="id" value=`${product.id}`)
+
             div.form-group.row
                 label(for="name").col-form-label Product Name 
                     div.col-sm-10
-                        input.form-control#name(type="text" name="name")
+                        input.form-control#name(type="text" name="name" value=`${product.name}`)
 
             div.form-group.row
                 label(for="price").col-form-label Price 
                     div.col-sm-10
-                        input.form-control#price(type="text" name="price")
+                        input.form-control#price(type="text" name="price" value=`${product.price}`)
 
             div.form-group.row
                 label(for="imageUrl").col-form-label Image 
                     div.col-sm-10
-                        input.form-control#imageUrl(type="text" name="imageUrl") 
+                        input.form-control#imageUrl(type="text" name="imageUrl" value=`${product.imageUrl}`) 
 
             div.form-group.row
                 label(for="description").col-form-label Description 
                     div.col-sm-10
-                        input.form-control#description(type="text" name="description")                                
+                        textarea.form-control#description(type="text" name="description" value=`${product.description}`)                                
                             
             div.form-group.row.mt-2
                 div.col-sm-10.offset-sm-2
