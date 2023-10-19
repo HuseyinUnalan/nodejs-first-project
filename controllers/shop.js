@@ -1,11 +1,15 @@
 const Product = require('../models/product')
+const Category = require('../models/category')
+
 
 module.exports.getIndex = (req, res, next) => {
     const products = Product.getAll();
+    const categories = Category.getAll();
     // res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
     res.render('shop/index', {
         title: 'Shopping',
         products: products,
+        categories: categories,
         path: '/'
     });
 }
@@ -13,10 +17,12 @@ module.exports.getIndex = (req, res, next) => {
 
 module.exports.getProducts = (req, res, next) => {
     const products = Product.getAll();
+    const categories = Category.getAll();
     // res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
     res.render('shop/products', {
         title: 'Products',
         products: products,
+        categories: categories,
         path: '/products'
     });
 }
