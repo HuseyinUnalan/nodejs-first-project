@@ -1,6 +1,6 @@
 const products = [
-    { id: "15151", name: 'Samsung S6', price: 2000, imageUrl: 'e.jpg', description: 'İyi Ürün' },
-    { id: "14141", name: 'Samsung S8', price: 1500, imageUrl: 'd.jpg', description: 'Güzel Ürün' }
+    { id: "15151", name: 'Samsung S6', price: 2000, imageUrl: 'e.jpg', description: 'İyi Ürün', categoryid: "1" },
+    { id: "14141", name: 'Samsung S8', price: 1500, imageUrl: 'd.jpg', description: 'Güzel Ürün', categoryid: "2" }
 
 
 ];
@@ -26,6 +26,10 @@ module.exports = class Product {
     static getById(id) {
         const product = products.find(i => i.id === id);
         return product;
+    }
+
+    static getProductsByCategoryId(categoryid) {
+        return products.filter(i => i.categoryid == categoryid);
     }
 
     static Update(product) {

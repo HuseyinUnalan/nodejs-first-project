@@ -1,6 +1,6 @@
 const categories = [
-    { id: "45", name: 'Phone', description: 'Telefon Ürünleri' },
-    { id: "54", name: 'Computer', description: 'Bilgisayar Ürünleri' }
+    { id: "1", name: 'Phone', description: 'Telefon Ürünleri' },
+    { id: "2", name: 'Computer', description: 'Bilgisayar Ürünleri' }
 
 
 ];
