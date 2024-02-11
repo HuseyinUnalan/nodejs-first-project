@@ -55,23 +55,24 @@ module.exports.getProductsByCategoryId = (req, res, next) => {
 }
 
 module.exports.getProduct = (req, res, next) => {
-    const productId = req.params.productid;
-    const product = Product.getById(req.params.productid);
-    res.render('shop/product-detail', {
-        title: product.name,
-        product: product,
-        path: '/products'
-    });
+
+    Product.getById(req.params.productid)
+        .then((product) => {
+
+
+            res.render('shop/product-detail', {
+                title: product[0][0].name,
+                product: product[0][0],
+                path: '/products'
+            });
+        })
+        .catch((err => {
+            console.log(err);
+        }));
+
+
 }
 
-module.exports.getProductDetails = (req, res, next) => {
-    const products = Product.getAll();
-    // res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
-    res.render('shop/details', {
-        title: 'Details',
-        path: '/details'
-    });
-}
 
 
 module.exports.getCart = (req, res, next) => {
