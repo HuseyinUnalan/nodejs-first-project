@@ -3,28 +3,42 @@ const Category = require('../models/category')
 
 
 module.exports.getIndex = (req, res, next) => {
-    const products = Product.getAll();
+
     const categories = Category.getAll();
-    // res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
-    res.render('shop/index', {
-        title: 'Shopping',
-        products: products,
-        categories: categories,
-        path: '/'
-    });
+
+    Product.getAll()
+        .then(products => {
+            res.render('shop/index', {
+                title: 'Shopping',
+                products: products[0],
+                categories: categories,
+                path: '/'
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+
 }
 
 
 module.exports.getProducts = (req, res, next) => {
-    const products = Product.getAll();
     const categories = Category.getAll();
-    // res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
-    res.render('shop/products', {
-        title: 'Products',
-        products: products,
-        categories: categories,
-        path: '/products'
-    });
+    Product.getAll()
+        .then(products => {
+            res.render('shop/products', {
+                title: 'Products',
+                products: products[0],
+                categories: categories,
+                path: '/products'
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
+
 }
 
 module.exports.getProductsByCategoryId = (req, res, next) => {
