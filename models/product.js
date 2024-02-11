@@ -32,7 +32,7 @@ module.exports = class Product {
 
 
     static DeleteById(id) {
-
+        return connection.execute('DELETE FROM products WHERE id=?', [id]);
     }
 
 }
