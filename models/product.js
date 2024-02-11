@@ -25,10 +25,11 @@ module.exports = class Product {
 
     static getProductsByCategoryId(categoryid) {}
 
+
     static Update(product) {
-
-
+        return connection.execute('UPDATE products SET name=?, price=?, imageUrl=?, description=? WHERE id=?', [product.name, product.price, product.imageUrl, product.description, product.id]);
     }
+
 
     static DeleteById(id) {
 

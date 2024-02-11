@@ -72,8 +72,9 @@ module.exports.getEditProducts = (req, res, next) => {
 
 exports.postEditProducts = (req, res, next) => {
 
-    const product = Product.getById(req.body.id);
+    const product = new Product();
 
+    product.id = req.body.id;
     product.name = req.body.name;
     product.price = req.body.price;
     product.imageUrl = req.body.imageUrl;
@@ -81,8 +82,13 @@ exports.postEditProducts = (req, res, next) => {
     product.categoryid = req.body.categoryid;
 
 
-    Product.Update(product);
-    res.redirect('/admin/products?action=edit');
+    Product.Update(product)
+        .then(() => {
+            res.redirect('/admin/products?action=edit');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
 
 exports.postProductDelete = (req, res, next) => {
