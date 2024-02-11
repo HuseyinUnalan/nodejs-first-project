@@ -41,10 +41,13 @@ exports.postAddProducts = (req, res, next) => {
     product.categoryid = req.body.categoryid;
     product.description = req.body.description;
 
-    product.saveProduct();
+    product.saveProduct()
+        .then(() => {
+            res.redirect('/');
+        }).catch((err) => {
+            console.log(err);
+        });
 
-    console.log(req.body);
-    res.redirect('/');
 }
 
 module.exports.getEditProducts = (req, res, next) => {
