@@ -2,13 +2,12 @@ const Product = require('../models/product');
 const Category = require('../models/category');
 
 module.exports.getProducts = (req, res, next) => {
-    const products = Product.getAll();
 
-    Product.getAll()
+    Product.findAll()
         .then(products => {
             res.render('admin/products', {
                 title: 'Admin Products',
-                products: products[0],
+                products: products,
                 path: 'admin/products',
                 action: req.query.action
 
@@ -73,16 +72,16 @@ exports.postAddProducts = (req, res, next) => {
 module.exports.getEditProducts = (req, res, next) => {
 
 
-    Product.getById(req.params.productid)
+    Product.findByPk(req.params.productid)
         .then((product) => {
 
-            Category.getAll()
+            Category.findAll()
                 .then((categories) => {
                     res.render('admin/edit-product', {
-                        title: product[0][0].name + ' Edit Product',
+                        title: product.name + ' Edit Product',
                         path: '/admin/products',
-                        product: product[0][0],
-                        categories: categories[0]
+                        product: product,
+                        categories: categories
                     });
                 })
                 .catch((err) => {
