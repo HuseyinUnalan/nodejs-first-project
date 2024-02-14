@@ -123,12 +123,29 @@ exports.postEditProducts = (req, res, next) => {
 }
 
 exports.postProductDelete = (req, res, next) => {
-    Product.DeleteById(req.body.productid)
-        .then(() => {
-            res.redirect('/admin/products?action=delete');
 
+    const id = req.body.productid;
+
+    Product.findByPk(id)
+        .then(product => {
+            return product.destroy();
         })
-        .catch((err) => {
+        .then(result => {
+            console.log('Product has been delected');
+            res.redirect('/admin/products?action=delete');
+        })
+        .catch(err => {
             console.log(err);
         });
+
+    /*
+    Product.destroy({ where: { id: id } })
+        .then(() => {
+            res.redirect('/admin/products?action=delete');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    */
+
 }
