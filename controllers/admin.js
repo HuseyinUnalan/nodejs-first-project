@@ -74,6 +74,9 @@ module.exports.getEditProducts = (req, res, next) => {
 
     Product.findByPk(req.params.productid)
         .then((product) => {
+            if (!product) {
+                return res.redirect('/');
+            }
 
             Category.findAll()
                 .then((categories) => {
@@ -96,23 +99,27 @@ module.exports.getEditProducts = (req, res, next) => {
 
 exports.postEditProducts = (req, res, next) => {
 
-    const product = new Product();
+    const id = req.body.id;
+    const name = req.body.name;
+    const price = req.body.price;
+    const imageUrl = req.body.imageUrl;
+    const description = req.body.description;
+    const categoryid = req.body.categoryid;
 
-    product.id = req.body.id;
-    product.name = req.body.name;
-    product.price = req.body.price;
-    product.imageUrl = req.body.imageUrl;
-    product.description = req.body.description;
-    product.categoryid = req.body.categoryid;
-
-
-    Product.Update(product)
-        .then(() => {
+    Product.findByPk(id)
+        .then(product => {
+            product.name = name;
+            product.price = price;
+            product.imageUrl = imageUrl;
+            product.description = description;
+            return product.save();
+        })
+        .then(result => {
+            console.log('update');
             res.redirect('/admin/products?action=edit');
         })
-        .catch((err) => {
-            console.log(err);
-        });
+        .catch(err => console.log(err))
+
 }
 
 exports.postProductDelete = (req, res, next) => {
