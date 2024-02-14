@@ -22,37 +22,51 @@ module.exports.getProducts = (req, res, next) => {
 }
 
 module.exports.getAddProducts = (req, res, next) => {
-
-    Category.getAll()
-        .then((categories) => {
-            res.render('admin/add-product', {
-                title: 'Add a New Product',
-                path: '/admin/add-product',
-                categories: categories[0]
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-
+    res.render('admin/add-product', {
+        title: 'Add a New Product',
+        path: '/admin/add-product',
+        // categories: categories[0]
+    });
 }
 
 exports.postAddProducts = (req, res, next) => {
-    const product = new Product();
 
-    product.name = req.body.name;
-    product.price = req.body.price;
-    product.imageUrl = req.body.imageUrl;
-    product.categoryid = req.body.categoryid;
-    product.description = req.body.description;
+    const name = req.body.name;
+    const price = req.body.price;
+    const imageUrl = req.body.imageUrl;
+    const description = req.body.description;
+    // const categoryid = req.body.categoryid;
+    /*
+        Product.create({
+                name: name,
+                price: price,
+                imageUrl: imageUrl,
+                description: description
+            })
+            .then(result => {
+                console.log(result);
+                res.redirect('/');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    */
 
-    product.saveProduct()
-        .then(() => {
+    const prd = Product.build({
+        name: name,
+        price: price,
+        imageUrl: imageUrl,
+        description: description
+    });
+
+    prd.save()
+        .then(result => {
+            console.log(result);
             res.redirect('/');
-        }).catch((err) => {
-            console.log(err);
-        });
+        })
+        .catch(err => {
+            console.timeLog(err);
+        })
 
 }
 
