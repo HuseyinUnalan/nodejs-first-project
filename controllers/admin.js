@@ -16,8 +16,6 @@ module.exports.getProducts = (req, res, next) => {
         .catch((err) => {
             console.log(err);
         })
-
-
 }
 
 module.exports.getAddProducts = (req, res, next) => {
@@ -147,5 +145,53 @@ exports.postProductDelete = (req, res, next) => {
             console.log(err);
         });
     */
+
+}
+
+// Category Transactions
+
+module.exports.getCategories = (req, res, next) => {
+
+    Category.findAll()
+        .then(categories => {
+            res.render('admin/categories', {
+                title: 'Admin Categories',
+                categories: categories,
+                path: 'admin/categories',
+                action: req.query.action
+
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+}
+
+module.exports.getAddCategory = (req, res, next) => {
+    res.render('admin/add-category', {
+        title: 'Add a New Category',
+        path: '/admin/add-category',
+    });
+}
+
+
+exports.postAddCategory = (req, res, next) => {
+
+    const name = req.body.name;
+    const description = req.body.description;
+
+    const ctg = Category.build({
+        name: name,
+        description: description
+    });
+
+    ctg.save()
+        .then(result => {
+            console.log(result);
+            res.redirect('/');
+        })
+        .catch(err => {
+            console.timeLog(err);
+        })
 
 }

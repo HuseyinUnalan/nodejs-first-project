@@ -18,4 +18,14 @@ router.get('/products', adminController.getProducts);
 
 router.post('/delete-product/', adminController.postProductDelete);
 
+
+
+// Category Transactions
+
+router.get('/add-category', adminController.getAddCategory);
+
+router.post('/add-category', adminController.postAddCategory);
+
+router.get('/categories', adminController.getCategories);
+
 module.exports = router;
