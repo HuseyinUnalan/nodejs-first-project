@@ -25,6 +25,17 @@ const { count } = require('console');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+    User.findByPk(1)
+        .then(user => {
+            req.user = user;
+            next();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+});
+
 // Routes
 app.use('/admin', adminRoutes);
 app.use(userRoutes);
@@ -43,13 +54,13 @@ Product.belongsTo(User);
 User.hasMany(Product);
 
 sequelize
-// .sync()
-    .sync({ force: true })
+    .sync()
+    // .sync({ force: true })
     .then(() => {
         User.findByPk(1)
             .then(user => {
                 if (!user) {
-                    User.create({ name: 'admin', email: 'admin@gmail.com' });
+                    return User.create({ name: 'admin', email: 'admin@gmail.com' });
                 }
                 return user;
             })
