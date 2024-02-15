@@ -18,6 +18,8 @@ const sequelize = require('./utility/database')
 
 const Category = require('./models/category');
 const Product = require('./models/product');
+const User = require('./models/user');
+const { count } = require('console');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,10 +39,32 @@ Product.belongsTo(Category, {
 });
 Category.hasMany(Product);
 
-sequelize.sync()
-    // .sync({ force: true })
-    .then(result => {
-        console.log(result);
+Product.belongsTo(User);
+User.hasMany(Product);
+
+sequelize
+// .sync()
+    .sync({ force: true })
+    .then(() => {
+        User.findByPk(1)
+            .then(user => {
+                if (!user) {
+                    User.create({ name: 'admin', email: 'admin@gmail.com' });
+                }
+                return user;
+            })
+            .then(user => {
+                Category.count()
+                    .then(count => {
+                        if (count === 0) {
+                            Category.bulkCreate([
+                                { name: 'Telefon', description: 'Telefon Kategorisi' },
+                                { name: 'Bilgisayar', description: 'Bilgisayar Kategorisi' },
+                                { name: 'Elektronik', description: 'Elektronik Kategorisi' },
+                            ]);
+                        }
+                    })
+            })
     })
     .catch(err => {
         console.log(err);
