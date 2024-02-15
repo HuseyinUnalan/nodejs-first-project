@@ -43,7 +43,8 @@ block content
 
         .text-center  
             a(href="/").btn.btn-primary Alışverişe Devam Et
-            a(href="/checkout").btn.btn-primary Alışverişi Tamamla
+            form(action="/create-order" method="POST")
+              button(type="submit").btn.btn-primary Alışverişi Tamamla
 
            
                                 
