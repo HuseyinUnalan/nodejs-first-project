@@ -183,6 +183,26 @@ module.exports.postCart = (req, res, next) => {
 
 }
 
+module.exports.postCartItemDelete = (req, res, next) => {
+    const productid = req.body.productid;
+
+    req.user
+        .getCart()
+        .then(cart => {
+            return cart.getProducts({ where: { id: productid } })
+        })
+        .then(products => {
+            const product = products[0];
+
+            return product.cartItem.destroy();
+        })
+        .then(result => {
+            res.redirect('/cart');
+        })
+
+
+}
+
 module.exports.getOrders = (req, res, next) => {
     const products = Product.getAll();
 
