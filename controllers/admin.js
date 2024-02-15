@@ -19,11 +19,21 @@ module.exports.getProducts = (req, res, next) => {
 }
 
 module.exports.getAddProducts = (req, res, next) => {
-    res.render('admin/add-product', {
-        title: 'Add a New Product',
-        path: '/admin/add-product',
-        // categories: categories[0]
-    });
+
+    Category.findAll()
+        .then((categories) => {
+            res.render('admin/add-product', {
+                title: 'Add a New Product',
+                path: '/admin/add-product',
+                categories: categories
+
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
+
 }
 
 exports.postAddProducts = (req, res, next) => {
@@ -32,39 +42,42 @@ exports.postAddProducts = (req, res, next) => {
     const price = req.body.price;
     const imageUrl = req.body.imageUrl;
     const description = req.body.description;
-    // const categoryid = req.body.categoryid;
+    const categoryid = req.body.categoryid;
+
+    // First Record Addition Method
+    Product.create({
+            name: name,
+            price: price,
+            imageUrl: imageUrl,
+            description: description,
+            categoryId: categoryid
+        })
+        .then(result => {
+            res.redirect('/');
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    // Second Record Addition Method
+
     /*
-        Product.create({
-                name: name,
-                price: price,
-                imageUrl: imageUrl,
-                description: description
-            })
+        const prd = Product.build({
+            name: name,
+            price: price,
+            imageUrl: imageUrl,
+            description: description
+        });
+
+        prd.save()
             .then(result => {
                 console.log(result);
                 res.redirect('/');
             })
             .catch(err => {
-                console.log(err);
-            });
+                console.timeLog(err);
+            })
     */
-
-    const prd = Product.build({
-        name: name,
-        price: price,
-        imageUrl: imageUrl,
-        description: description
-    });
-
-    prd.save()
-        .then(result => {
-            console.log(result);
-            res.redirect('/');
-        })
-        .catch(err => {
-            console.timeLog(err);
-        })
-
 }
 
 module.exports.getEditProducts = (req, res, next) => {
@@ -110,6 +123,7 @@ exports.postEditProducts = (req, res, next) => {
             product.price = price;
             product.imageUrl = imageUrl;
             product.description = description;
+            product.categoryId = categoryid;
             return product.save();
         })
         .then(result => {
@@ -188,7 +202,7 @@ exports.postAddCategory = (req, res, next) => {
     ctg.save()
         .then(result => {
             console.log(result);
-            res.redirect('/');
+            res.redirect('/admin/add-category');
         })
         .catch(err => {
             console.timeLog(err);
