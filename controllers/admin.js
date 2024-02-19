@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-const Category = require('../models/category');
+// const Category = require('../models/category');
 
 module.exports.getProducts = (req, res, next) => {
 
@@ -20,18 +20,10 @@ module.exports.getProducts = (req, res, next) => {
 
 module.exports.getAddProducts = (req, res, next) => {
 
-    Category.findAll()
-        .then((categories) => {
-            res.render('admin/add-product', {
-                title: 'Add a New Product',
-                path: '/admin/add-product',
-                categories: categories
-
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    res.render('admin/add-product', {
+        title: 'Add a New Product',
+        path: '/admin/add-product',
+    });
 
 
 }
@@ -42,19 +34,13 @@ exports.postAddProducts = (req, res, next) => {
     const price = req.body.price;
     const imageUrl = req.body.imageUrl;
     const description = req.body.description;
-    const categoryid = req.body.categoryid;
-    const user = req.user;
 
     // First Record Addition Method
-    user.createProduct({
-            name: name,
-            price: price,
-            imageUrl: imageUrl,
-            description: description,
-            categoryId: categoryid
-        })
+    const product = new Product(name, price, description, imageUrl);
+
+    product.save()
         .then(result => {
-            res.redirect('/');
+            res.redirect('/admin/products');
         })
         .catch(err => {
             console.log(err);
@@ -165,48 +151,48 @@ exports.postProductDelete = (req, res, next) => {
 
 // Category Transactions
 
-module.exports.getCategories = (req, res, next) => {
+// module.exports.getCategories = (req, res, next) => {
 
-    Category.findAll()
-        .then(categories => {
-            res.render('admin/categories', {
-                title: 'Admin Categories',
-                categories: categories,
-                path: 'admin/categories',
-                action: req.query.action
+//     Category.findAll()
+//         .then(categories => {
+//             res.render('admin/categories', {
+//                 title: 'Admin Categories',
+//                 categories: categories,
+//                 path: 'admin/categories',
+//                 action: req.query.action
 
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-}
+//             });
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//         })
+// }
 
-module.exports.getAddCategory = (req, res, next) => {
-    res.render('admin/add-category', {
-        title: 'Add a New Category',
-        path: '/admin/add-category',
-    });
-}
+// module.exports.getAddCategory = (req, res, next) => {
+//     res.render('admin/add-category', {
+//         title: 'Add a New Category',
+//         path: '/admin/add-category',
+//     });
+// }
 
 
-exports.postAddCategory = (req, res, next) => {
+// exports.postAddCategory = (req, res, next) => {
 
-    const name = req.body.name;
-    const description = req.body.description;
+//     const name = req.body.name;
+//     const description = req.body.description;
 
-    const ctg = Category.build({
-        name: name,
-        description: description
-    });
+//     const ctg = Category.build({
+//         name: name,
+//         description: description
+//     });
 
-    ctg.save()
-        .then(result => {
-            console.log(result);
-            res.redirect('/admin/add-category');
-        })
-        .catch(err => {
-            console.timeLog(err);
-        })
+//     ctg.save()
+//         .then(result => {
+//             console.log(result);
+//             res.redirect('/admin/add-category');
+//         })
+//         .catch(err => {
+//             console.timeLog(err);
+//         })
 
-}
+// }
