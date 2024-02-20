@@ -1,22 +1,22 @@
+//- Düzeltilmiş mixin
 mixin createProduct(product)
     div.col-md-4
         div.card
-            img(src=`/img/${product.imageUrl}` alt=`${product.description}`).card-img-top 
+            img(src=`/img/${product.imageUrl}`, alt=`${product.description}`).card-img-top 
             div.card-body
                 h4.card-title
-                    a(href=`/products/${product.id}`) #{product.name}
+                    a(href=`/products/${product._id}`) #{product.name}
                                         
                 small.text-muted 
                     i.fa.fa-try #{product.price}
                                         
                                     
             div.card-footer.text-center
-                
                     
-                a(href=`/products/${product.id}`).btn.btn-outline-primary.btn-sm.ml-3
+                a(href=`/products/${product._id}`, class='btn btn-outline-primary btn-sm ml-3') 
                     i.fa.fa-angle-double-right Details
 
                 form(action='/cart' method='POST')
-                    input(type='hidden' name='productId' value=`${product.id}`)
-                    button(type='submit').btn.btn-outline-primary.btn-sm.ml-3
+                    input(type='hidden' name='productId' value=`${product._id}`)
+                    button(type='submit', class='btn btn-outline-primary btn-sm ml-3') 
                         i.fa.fa-angle-double-right Add to Cart

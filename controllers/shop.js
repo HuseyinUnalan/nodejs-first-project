@@ -1,26 +1,17 @@
 const Product = require('../models/product')
-const Category = require('../models/category')
+    // const Category = require('../models/category')
 
 
 module.exports.getIndex = (req, res, next) => {
 
 
-    Product.findAll({
-            attributes: ['id', 'name', 'price', 'imageUrl'],
-        })
+    Product.findAll()
         .then(products => {
-            Category.findAll()
-                .then(categories => {
-                    res.render('shop/index', {
-                        title: 'Shopping',
-                        products: products,
-                        categories: categories,
-                        path: '/'
-                    });
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+            res.render('shop/index', {
+                title: 'Shopping',
+                products: products,
+                path: '/'
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -36,18 +27,11 @@ module.exports.getProducts = (req, res, next) => {
             attributes: ['id', 'name', 'price', 'imageUrl'],
         })
         .then(products => {
-            Category.findAll()
-                .then(categories => {
-                    res.render('shop/products', {
-                        title: 'Products',
-                        products: products,
-                        categories: categories,
-                        path: '/products'
-                    });
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+            res.render('shop/products', {
+                title: 'Products',
+                products: products,
+                path: '/products'
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -81,39 +65,18 @@ module.exports.getProductsByCategoryId = (req, res, next) => {
 }
 
 module.exports.getProduct = (req, res, next) => {
-
-    Product.findAll({
-            attributes: ['id', 'name', 'price', 'imageUrl', 'description'],
-            where: { id: req.params.productid }
-
-        })
-        .then(products => {
+    Product.findById(req.params.productid)
+        .then(product => {
+            console.log(req.params.productid)
             res.render('shop/product-detail', {
-                title: products[0].name,
-                product: products[0],
-                path: '/products'
+                title: product.name,
+                path: '/products',
+                product: product
             });
         })
         .catch(err => {
             console.log(err);
         });
-
-    /*
-    Product.findByPk(req.params.productid)
-        .then((product) => {
-
-            res.render('shop/product-detail', {
-                title: product.name,
-                product: product,
-                path: '/products'
-            });
-        })
-        .catch((err => {
-            console.log(err);
-        }));
-    */
-
-
 }
 
 

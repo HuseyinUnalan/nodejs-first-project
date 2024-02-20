@@ -70,12 +70,12 @@ exports.postAddProducts = (req, res, next) => {
 module.exports.getEditProduct = (req, res, next) => {
 
     Product.findById(req.params.productid)
-        .then(products => {
-            console.log(products[0]);
+        .then(product => {
+            console.log(product);
             res.render('admin/edit-product', {
                 title: 'Edit Product',
                 path: '/admin/products',
-                product: products[0]
+                product: product
             });
         })
         .catch(err => { console.log(err) });
@@ -91,19 +91,12 @@ exports.postEditProducts = (req, res, next) => {
     const price = req.body.price;
     const imageUrl = req.body.imageUrl;
     const description = req.body.description;
-    const categoryid = req.body.categoryid;
+    // const categoryid = req.body.categoryid;
 
-    Product.findByPk(id)
-        .then(product => {
-            product.name = name;
-            product.price = price;
-            product.imageUrl = imageUrl;
-            product.description = description;
-            product.categoryId = categoryid;
-            return product.save();
-        })
+    const product = new Product(name, price, description, imageUrl, id);
+
+    product.save()
         .then(result => {
-            console.log('update');
             res.redirect('/admin/products?action=edit');
         })
         .catch(err => console.log(err))
@@ -114,11 +107,8 @@ exports.postProductDelete = (req, res, next) => {
 
     const id = req.body.productid;
 
-    Product.findByPk(id)
-        .then(product => {
-            return product.destroy();
-        })
-        .then(result => {
+    Product.deleteById(id)
+        .then(() => {
             console.log('Product has been delected');
             res.redirect('/admin/products?action=delete');
         })
@@ -126,15 +116,7 @@ exports.postProductDelete = (req, res, next) => {
             console.log(err);
         });
 
-    /*
-    Product.destroy({ where: { id: id } })
-        .then(() => {
-            res.redirect('/admin/products?action=delete');
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    */
+
 
 }
 
